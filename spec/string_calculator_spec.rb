@@ -7,6 +7,12 @@ RSpec.describe StringCalculator do
       end
     end
 
+    context 'with a comma alone' do
+      it 'raises invalid input exception' do
+        expect { calculator.add(',') }.to raise_error(StandardError, 'Invalid Input')
+      end
+    end
+
     context 'with one number' do
       it 'returns the number itself' do
         expect(calculator.add('1')).to eq(1)
@@ -28,6 +34,12 @@ RSpec.describe StringCalculator do
     context 'with numbers separated by newline and comma' do
       it 'returns the sum of the numbers' do
         expect(calculator.add('1\n2,3')).to eq(6)
+      end
+    end
+
+    context 'with invalid input' do
+      it 'raises invalid input exception' do
+        expect { calculator.add('1,\n') }.to raise_error(StandardError, 'Invalid Input')
       end
     end
   end
