@@ -1,5 +1,5 @@
 class StringCalculator
   def add(numbers)
-    numbers.to_i
+    numbers.split(',').map(&:to_i).sum
   end
 end
