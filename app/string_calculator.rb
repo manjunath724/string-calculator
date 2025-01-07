@@ -2,7 +2,7 @@ class StringCalculator
   def add(numbers)
     return 0 if numbers.empty?
 
-    replace_delimiter(numbers)
+    sanitize_input(numbers)
     validate_input(numbers)
 
     numbers.split(',').map(&:to_i).sum { |num| num <= 1000 ? num : 0 }
@@ -10,17 +10,15 @@ class StringCalculator
 
   private
 
-  def replace_delimiter(numbers)
-    delimiter = numbers.match(/^\/\/(.*?)\n/) { $1 }
+  def sanitize_input(numbers)
+    delimiter = numbers.slice!(/^\/\/(.*?)\n/)
+    substitute_pattern(numbers, delimiter) unless delimiter.nil?
+    numbers.gsub!("\n", ',')
+  end
 
-    unless delimiter.nil?
-      numbers.gsub!("//#{delimiter}\n", '')
-      delimiter.gsub!('[','')
-      delimiters = delimiter.split(']')
-      delimiters.map { |d| numbers.gsub!(d, ',') }
-    end
-
-    numbers.gsub!('\n', ',')
+  def substitute_pattern(numbers, delimiter)
+    delimiters = delimiter.gsub!(/\/\/|\[|\n/, '').split(']')
+    delimiters.map { |d| numbers.gsub!(d, ',') }
   end
 
   def validate_input(numbers)
