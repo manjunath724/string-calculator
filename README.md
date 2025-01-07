@@ -42,3 +42,4 @@
 ### Assignment
 * [Requirement](https://blog.incubyte.co/blog/tdd-assessment)
 * [Additional Conditions](https://osherove.com/tdd-kata-1)
+* [Instruction Manual](/doc/setup_guide.md)
