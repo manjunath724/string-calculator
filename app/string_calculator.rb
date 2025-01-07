@@ -6,7 +6,7 @@ class StringCalculator
     validate_size(numbers)
     validate_negative(numbers)
 
-    numbers.split(',').map(&:to_i).sum
+    numbers.split(',').map(&:to_i).sum { |num| num <= 1000 ? num : 0 }
   end
 
   private
